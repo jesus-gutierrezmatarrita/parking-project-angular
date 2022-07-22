@@ -4,9 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Company } from 'src/app/model/company.model';
-import { CompanyService } from 'src/app/service/company/company.service';
 import { ProductService } from 'src/app/service/product/product.service';
+import { RoleService } from 'src/app/service/role/role.service';
 
 
 @Component({
@@ -16,19 +15,19 @@ import { ProductService } from 'src/app/service/product/product.service';
 })
 export class RoleComponent implements OnInit {
 
-   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  productForm: FormGroup;
-  companies: any;
+  roleForm: FormGroup;
   products: any;
+  roles: any;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['productId', 'productName', 'productDescription', 'productPrice', 'productCategory', 'options'];
+  displayedColumns: string[] = ['roleId', 'roleName', 'options'];
  
   constructor(
     public fb: FormBuilder,
-    public companyService: CompanyService,
     public productService: ProductService,
+    public roleService: RoleService,
     private _snackBar: MatSnackBar
   ) { }
   
@@ -38,23 +37,17 @@ export class RoleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const company = new Company();
-    company.companyId = 1;
-    company.companyName = "Florida Bebidas";
-    this.productForm = this.fb.group({
+    this.roleForm = this.fb.group({
 
-      productId: [''],
-      productName: ['', Validators.required],
-      productDescription: ['', Validators.required],
-      productPrice: ['', Validators.required],
-      productCategory: ['', Validators.required],
-      company
-
-    });
+      roleId: [''],
+      roleName: ['', Validators.required],
     
-    //Obtiene todos los productos
-    this.productService.getAllProducts().subscribe(resp => {
-      this.products = resp;
+    });
+
+    //Obtiene todos los roles
+    this.roleService.getAllRoles().subscribe(resp => {
+      this.roles = resp;
+      console.log(resp);
       this.setDataAndPagination();
     },
       error => { console.error(error) }
@@ -63,15 +56,15 @@ export class RoleComponent implements OnInit {
   }
 
   setDataAndPagination(){
-    this.dataSource = new MatTableDataSource(this.products);
+    this.dataSource = new MatTableDataSource(this.roles);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  guardar(): void {
-    this.productService.saveProduct(this.productForm.value).subscribe(resp => {
-      this.productForm.reset();
-      this.products = this.products.filter((product: { productId: any; }) => resp.productId !== product.productId)
+  save(): void {
+    this.productService.saveProduct(this.roleForm.value).subscribe(resp => {
+      this.roleForm.reset();
+      this.products = this.products.filter((product: { roleId: any; }) => resp.roleId !== product.roleId)
       this._snackBar.open('Producto guardado correctamente', '', {
         duration: 2000,
         horizontalPosition: 'center',
@@ -86,12 +79,12 @@ export class RoleComponent implements OnInit {
   }
 
   delete(product: any){
-    this.productService.deleteProduct(product.productId).subscribe(resp => {
+    this.productService.deleteProduct(product.roleId).subscribe(resp => {
       console.log(resp)
       if(resp===true){
         this.products.pop(product);
         this.setDataAndPagination();
-        this._snackBar.open('Producto eliminado', '', {
+        this._snackBar.open('Role eliminado', '', {
           duration: 2000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
@@ -102,14 +95,10 @@ export class RoleComponent implements OnInit {
     )
   }
 
-  edit(product: any){
-    this.productForm.setValue({
-      productId: product.productId,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productPrice: product.productPrice,
-      productCategory: product.productCategory,
-      company: product.company
+  edit(role: any){
+    this.roleForm.setValue({
+      roleId: role.id,
+      roleName: role.name,
     })
 
   }
