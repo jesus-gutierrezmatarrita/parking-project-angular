@@ -8,6 +8,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ProductsComponent } from './products/products.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SaveProductComponent } from './products/save-product/save-product.component';
+import { CustomerComponent } from './customer/customer.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SaveProductComponent } from './products/save-product/save-product.compo
     InicioComponent,
     ProductsComponent,
     NavbarComponent,
-    SaveProductComponent
+    SaveProductComponent,
+    CustomerComponent
   ],
   imports: [
     CommonModule,
