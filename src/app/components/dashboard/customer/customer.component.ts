@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Company } from 'src/app/model/company.model';
 import { CompanyService } from 'src/app/service/company/company.service';
+import { CustomerService } from 'src/app/service/customer/customer.service';
 import { ProductService } from 'src/app/service/product/product.service';
 
 @Component({
@@ -18,16 +19,16 @@ export class CustomerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  productForm: FormGroup;
-  companies: any;
-  products: any;
+  customerForm: FormGroup;
+  customers: any;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['productId', 'productName', 'productDescription', 'productPrice', 'productCategory', 'options'];
+  displayedColumns: string[] = ['customerID', 'name', 'lastName', 'email', 'phone', 'options'];
  
   constructor(
     public fb: FormBuilder,
     public companyService: CompanyService,
     public productService: ProductService,
+    public customerService: CustomerService,
     private _snackBar: MatSnackBar
   ) { }
   
@@ -36,59 +37,53 @@ export class CustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    const company = new Company();
-    company.companyId = 1;
-    company.companyName = "Florida Bebidas";
-    this.productForm = this.fb.group({
-
-      productId: [''],
-      productName: ['', Validators.required],
-      productDescription: ['', Validators.required],
-      productPrice: ['', Validators.required],
-      productCategory: ['', Validators.required],
-      company
-
+    
+    this.customerForm = this.fb.group({
+      id: [''],
+      name: [''],
+      lastName: [''],
+      password: [''],
+      email: [''],
+      phone: ['']
     });
     
     //Obtiene todos los productos
-    this.productService.getAllProducts().subscribe(resp => {
-      this.products = resp;
+    this.customerService.getAllCustomers().subscribe(resp => {
+      this.customers = resp;
       this.setDataAndPagination();
     },
       error => { console.error(error) }
     )
-
   }
 
   setDataAndPagination(){
-    this.dataSource = new MatTableDataSource(this.products);
+    this.dataSource = new MatTableDataSource(this.customers);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  guardar(): void {
-    this.productService.saveProduct(this.productForm.value).subscribe(resp => {
-      this.productForm.reset();
-      this.products = this.products.filter((product: { productId: any; }) => resp.productId !== product.productId)
-      this._snackBar.open('Producto guardado correctamente', '', {
+  guardar(): void {/*
+    this.productService.saveProduct(this.customerForm.value).subscribe(resp => {
+      this.customerForm.reset();
+      this.customers = this.customers.filter((product: { productId: any; }) => resp.productId !== product.productId)
+      this._snackBar.open('Cliente guardado correctamente', '', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom'
       })
-      this.products.push(resp);
+      this.customers.push(resp);
       this.setDataAndPagination();
        
     },
       error => { console.error(error) }
-    )
+    )*/
   }
 
-  delete(product: any){
+  delete(product: any){/*
     this.productService.deleteProduct(product.productId).subscribe(resp => {
       console.log(resp)
       if(resp===true){
-        this.products.pop(product);
+        this.customers.pop(product);
         this.setDataAndPagination();
         this._snackBar.open('Producto eliminado', '', {
           duration: 2000,
@@ -98,18 +93,18 @@ export class CustomerComponent implements OnInit {
       }    
     },
       error => { console.error(error) }
-    )
+    )*/
   }
 
-  edit(product: any){
-    this.productForm.setValue({
+  edit(customer: any){/*
+    this.customerForm.setValue({
       productId: product.productId,
       productName: product.productName,
       productDescription: product.productDescription,
       productPrice: product.productPrice,
       productCategory: product.productCategory,
       company: product.company
-    })
+    })*/
 
   }
 
