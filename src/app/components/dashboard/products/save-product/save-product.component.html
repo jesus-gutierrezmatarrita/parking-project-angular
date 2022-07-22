@@ -1,0 +1,48 @@
+<div class="container">
+    <mat-toolbar>
+        <span>Insertar Producto</span>
+    </mat-toolbar>
+    <mat-card style="margin-top: 10px;">
+        <form [formGroup]="productForm" (ngSubmit)="guardar()">
+            <mat-grid-list cols="4" rowHeight="70px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput autocomplete="off" formControlName="productName">
+                      </mat-form-field>
+
+                </mat-grid-tile>
+                <mat-grid-tile [colspan]="3" [rowspan]="5">
+                    Imagen
+                </mat-grid-tile>
+                
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Descripcion</mat-label>
+                        <input matInput autocomplete="off" formControlName="productDescription">
+                      </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Precio</mat-label>
+                        <input input type="number" matInput autocomplete="off" formControlName="productPrice">
+                      </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field class="ancho">
+                        <mat-label>Categoria</mat-label>
+                        <input matInput autocomplete="off" formControlName="productCategory">
+                      </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <button type="submit" mat-raised-button color="primary" [disabled]="productForm.invalid">Aceptar</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+              
+        </form>
+    </mat-card>
+
+</div>

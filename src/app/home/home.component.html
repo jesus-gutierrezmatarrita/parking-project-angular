@@ -1,0 +1,56 @@
+<div class="formularioRegistro">
+    <h2>Insertar producto</h2>
+    <form [formGroup]="productForm" (ngSubmit)="guardar()">
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="productName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Descripcion</label>
+            <input type="text" formControlName="productDescription" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="number" formControlName="productPrice" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Categoria</label>
+            <input type="text" formControlName="productCategory" class="form-control">
+        </div>
+        
+        <button type="submit" class="btn btn-primary" [disabled] = productForm.invalid>Insertar</button>
+
+    </form>
+</div>
+
+<div class="formularioRegistro">
+    <h2>Productos registrados</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Categoria</th>
+            <th>Compañia</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of products">
+            <th>{{item.productId}}</th>
+            <td>{{item.productName}}</td>
+            <td>{{item.productDescription}}</td>
+            <td>{{item.productPrice}}</td>
+            <td>{{item.productCategory}}</td>
+            <td>{{item.company}}</td>
+            <td>
+              <button type="button" class="btn btn-success" (click)="edit(item)">Editar</button>
+              <button type="button" class="btn btn-danger" (click)="delete(item)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+

@@ -19,7 +19,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSortModule} from '@angular/material/sort'
 
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -38,7 +37,7 @@ import {MatSortModule} from '@angular/material/sort'
     MatGridListModule,
     MatPaginatorModule,
     MatExpansionModule,
-    MatSortModule 
+    MatSortModule
   ],
   exports: [
     CommonModule,
