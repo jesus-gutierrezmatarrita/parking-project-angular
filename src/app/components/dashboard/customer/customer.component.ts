@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from 'src/app/model/company.model';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { CustomerService } from 'src/app/service/customer/customer.service';
@@ -20,21 +21,19 @@ export class CustomerComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   customerForm: FormGroup;
-  customers: any;
+  customers:any = [];
   dataSource: MatTableDataSource<any>;
   displayedColumns: string[] = ['customerID', 'name', 'lastName', 'email', 'phone', 'options'];
  
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     public fb: FormBuilder,
     public companyService: CompanyService,
     public productService: ProductService,
     public customerService: CustomerService,
     private _snackBar: MatSnackBar
   ) { }
-  
-  ngAfterViewInit(): void {
-    this.setDataAndPagination();
-  }
 
   ngOnInit(): void {
     
@@ -48,18 +47,24 @@ export class CustomerComponent implements OnInit {
     });
     
     //Obtiene todos los productos
-    this.customerService.getAllCustomers().subscribe(resp => {
-      this.customers = resp;
-      this.setDataAndPagination();
-    },
-      error => { console.error(error) }
-    )
+    this.getCustomers();
+
   }
 
   setDataAndPagination(){
     this.dataSource = new MatTableDataSource(this.customers);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  getCustomers() {
+    this.customers = [];
+    this.customerService.getAllCustomers().subscribe(res => {
+      this.customers = res;
+      this.setDataAndPagination();
+    },
+      error => { console.error(error) }
+    )
   }
 
   guardar(): void {/*
@@ -79,21 +84,14 @@ export class CustomerComponent implements OnInit {
     )*/
   }
 
-  delete(product: any){/*
-    this.productService.deleteProduct(product.productId).subscribe(resp => {
-      console.log(resp)
-      if(resp===true){
-        this.customers.pop(product);
-        this.setDataAndPagination();
-        this._snackBar.open('Producto eliminado', '', {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
-      }    
-    },
-      error => { console.error(error) }
-    )*/
+  delete(id: number){
+    if (confirm('¿De verdad quiere eliminar?')){
+      this.customerService.deleteCustomer(id).subscribe((data) => {
+        this.ngOnInit();
+      },
+        error => { console.error(error) }
+      )
+    }
   }
 
   edit(customer: any){/*
