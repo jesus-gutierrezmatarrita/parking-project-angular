@@ -31,10 +31,6 @@ export class RoleComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) { }
   
-  ngAfterViewInit(): void {
-    this.setDataAndPagination();
-  }
-
   ngOnInit(): void {
 
     this.roleForm = this.fb.group({
@@ -47,7 +43,6 @@ export class RoleComponent implements OnInit {
     //Obtiene todos los roles
     this.roleService.getAllRoles().subscribe(resp => {
       this.roles = resp;
-      console.log(resp);
       this.setDataAndPagination();
     },
       error => { console.error(error) }
@@ -61,7 +56,7 @@ export class RoleComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  save(): void {
+  /*guardar(): void {
     this.productService.saveProduct(this.roleForm.value).subscribe(resp => {
       this.roleForm.reset();
       this.products = this.products.filter((product: { roleId: any; }) => resp.roleId !== product.roleId)
@@ -76,23 +71,40 @@ export class RoleComponent implements OnInit {
     },
       error => { console.error(error) }
     )
+  }*/
+
+  save(): void {
+    this.roleService.saveRole(this.roleForm.value).subscribe(resp => {
+      this.roleForm.reset();
+      //this.roles = this.roles.filter((role: { id: any; }) => resp.id !== role.id)
+      this._snackBar.open('Role guardado correctamente', '', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      })
+      this.products.push(resp);
+      this.setDataAndPagination();
+       
+    },
+      error => { console.error(error) }
+    )
   }
 
-  delete(product: any){
-    this.productService.deleteProduct(product.roleId).subscribe(resp => {
-      console.log(resp)
-      if(resp===true){
-        this.products.pop(product);
-        this.setDataAndPagination();
+  delete(id: number){
+    if (confirm('¿Está seguro de que desea eliminar el registro?')){
+      this.roleService.deleteRole(id).subscribe((data) => {
+        this.ngOnInit();
+        
         this._snackBar.open('Role eliminado', '', {
           duration: 2000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom'
         })
-      }    
-    },
-      error => { console.error(error) }
-    )
+        
+      },
+        error => { console.error(error) }
+      )
+    }
   }
 
   edit(role: any){

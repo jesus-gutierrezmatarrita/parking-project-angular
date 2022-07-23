@@ -1,26 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+const API_SERVER = "http://parking-project-operations.herokuapp.com/role/";
+
+const httpOptions = {
+  headers: new HttpHeaders ({
+    'Content-Type': 'application/json'
+  })
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
 
-  private API_SERVER = "http://parking-project-operations.herokuapp.com/role/";
-
   constructor(private httpClient: HttpClient) { }
 
   public getAllRoles(): Observable<any>{
-    return this.httpClient.get(this.API_SERVER + "list");
+    return this.httpClient.get(API_SERVER + "list", httpOptions);
   }
 
-  public saveRole(role:any): Observable<any>{
-    return this.httpClient.post(this.API_SERVER + "save", role);
+  saveRole(role:any): Observable<any>{
+    return this.httpClient.post(API_SERVER + "save", role, httpOptions);
   
   }
 
-  public deleteRole(id:any): Observable<any>{
-    return this.httpClient.delete(this.API_SERVER + "delete/"+id);
+  deleteRole(id:number): Observable<any>{
+    return this.httpClient.delete(API_SERVER + "delete/" + id, httpOptions);
   }
 }
