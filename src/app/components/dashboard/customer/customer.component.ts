@@ -5,7 +5,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Company } from 'src/app/model/company.model';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { CustomerService } from 'src/app/service/customer/customer.service';
 import { ProductService } from 'src/app/service/product/product.service';
@@ -21,10 +20,10 @@ export class CustomerComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   customerForm: FormGroup;
-  customers:any = [];
+  customers: any = [];
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['customerID', 'name', 'lastName', 'email', 'phone', 'options'];
- 
+  displayedColumns: string[] = ['name', 'lastname','email', 'phone', 'options'];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -36,22 +35,22 @@ export class CustomerComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.customerForm = this.fb.group({
       id: [''],
-      name: [''],
-      lastName: [''],
-      password: [''],
-      email: [''],
-      phone: ['']
+      name: ['', Validators.required],
+      lastname: ['', Validators.required],
+      password: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required]
     });
-    
+
     //Obtiene todos los productos
     this.getCustomers();
 
   }
 
-  setDataAndPagination(){
+  setDataAndPagination() {
     this.dataSource = new MatTableDataSource(this.customers);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -67,25 +66,28 @@ export class CustomerComponent implements OnInit {
     )
   }
 
-  guardar(): void {/*
-    this.productService.saveProduct(this.customerForm.value).subscribe(resp => {
-      this.customerForm.reset();
-      this.customers = this.customers.filter((product: { productId: any; }) => resp.productId !== product.productId)
-      this._snackBar.open('Cliente guardado correctamente', '', {
-        duration: 2000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom'
-      })
-      this.customers.push(resp);
-      this.setDataAndPagination();
-       
+  addCustomer() {
+    const customer = {
+      name: this.customerForm.value.name,
+      lastname: this.customerForm.value.lastname,
+      password: this.customerForm.value.password,
+      email: this.customerForm.value.email,
+      phone: this.customerForm.value.phone
+    }
+
+    this.customerService.saveCustomer(customer).subscribe((data) => {
+      this.customers = this.customers.filter((customer: { id: number; }) => data.id !== data.id)
+
+      this.customers.push(data);
+      this.ngOnInit();
     },
       error => { console.error(error) }
-    )*/
+    )
   }
 
-  delete(id: number){
-    if (confirm('¿De verdad quiere eliminar?')){
+
+  delete(id: number) {
+    if (confirm('¿De verdad quiere eliminar?')) {
       this.customerService.deleteCustomer(id).subscribe((data) => {
         this.ngOnInit();
       },
@@ -94,16 +96,44 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-  edit(customer: any){/*
+  fillData(oldDataCustomer: any) {
     this.customerForm.setValue({
-      productId: product.productId,
-      productName: product.productName,
-      productDescription: product.productDescription,
-      productPrice: product.productPrice,
-      productCategory: product.productCategory,
-      company: product.company
-    })*/
+      id: oldDataCustomer.id,
+      name: oldDataCustomer.name,
+      lastname: oldDataCustomer.lastname,
+      password: oldDataCustomer.password,
+      email: oldDataCustomer.email,
+      phone: oldDataCustomer.phone
+    })
 
+    console.log(this.customerForm)
+
+    
+    /*
+    
+    this.customerService.editCustomer(customer).subscribe((data) => {
+      this.customerForm.reset();
+      this.ngOnInit();
+    },
+      error => { console.error(error) }
+    )*/
+
+  }
+
+  editCustomer() {
+    const customer = {
+      id: this.customerForm.value.id,
+      name: this.customerForm.value.name,
+      lastname: this.customerForm.value.lastname,
+      password: this.customerForm.value.password,
+      email: this.customerForm.value.email,
+      phone: this.customerForm.value.phone
+    }
+
+    console.log(customer)
+    this.customerService.editCustomer(customer).subscribe(data => {
+      console.log("Actualizado");
+    })
   }
 
 }

@@ -7,6 +7,11 @@ table {
   cursor: pointer;
 }
 
-.ancho{
+.width{
   width: 100%;
+}
+
+.add-spacer {
+  flex: 1 1 auto;
+  margin-left: 1em;
 }

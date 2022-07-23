@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/dashboard/navbar/navbar.component'; 
 import { LoginComponent } from './components/login/login.component';
 import { SharedModule } from './components/shared/shared.module';
-import { InicioComponent } from './components/dashboard/inicio/inicio.component';
 
 @NgModule({
   declarations: [

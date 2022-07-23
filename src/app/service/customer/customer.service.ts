@@ -21,12 +21,18 @@ export class CustomerService {
     return this.httpClient.get(API_SERVER + "list", httpOptions);
   }
 
-  public saveCustomer(customer:any): Observable<any>{
-    return this.httpClient.post(API_SERVER + "save", customer);
+  saveCustomer(customer:any): Observable<any>{
+    console.log("Hello from add service")
+    return this.httpClient.post(API_SERVER + "save", customer, httpOptions);
   }
 
   deleteCustomer(id:number): Observable<any>{
     return this.httpClient.delete(API_SERVER + "delete/" + id,httpOptions)
+  }
+
+  editCustomer(customer:any): Observable<any>{
+    console.log("Hello from edit service")
+    return this.httpClient.put(API_SERVER + "update/" + customer.id,customer, httpOptions)
   }
 
   private handleError<T> (operation = 'operation', result?: T) {
