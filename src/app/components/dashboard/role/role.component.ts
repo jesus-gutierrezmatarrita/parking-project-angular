@@ -35,8 +35,8 @@ export class RoleComponent implements OnInit {
 
     this.roleForm = this.fb.group({
 
-      roleId: [''],
-      roleName: ['', Validators.required],
+      id: [''],
+      name: ['', Validators.required],
     
     });
 
@@ -56,35 +56,22 @@ export class RoleComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  /*guardar(): void {
-    this.productService.saveProduct(this.roleForm.value).subscribe(resp => {
-      this.roleForm.reset();
-      this.products = this.products.filter((product: { roleId: any; }) => resp.roleId !== product.roleId)
-      this._snackBar.open('Producto guardado correctamente', '', {
-        duration: 2000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom'
-      })
-      this.products.push(resp);
-      this.setDataAndPagination();
-       
-    },
-      error => { console.error(error) }
-    )
-  }*/
+  addRole() {
+    const role = {
+      name: this.roleForm.value.name
+    }
 
-  save(): void {
-    this.roleService.saveRole(this.roleForm.value).subscribe(resp => {
-      this.roleForm.reset();
-      //this.roles = this.roles.filter((role: { id: any; }) => resp.id !== role.id)
+    this.roleService.saveRole(role).subscribe((data) => {
+      this.roles = this.roles.filter((role: { id: number; }) => data.id !== data.id)
+
+      this.roles.push(data);
+      this.ngOnInit();
+
       this._snackBar.open('Role guardado correctamente', '', {
         duration: 2000,
         horizontalPosition: 'center',
         verticalPosition: 'bottom'
       })
-      this.products.push(resp);
-      this.setDataAndPagination();
-       
     },
       error => { console.error(error) }
     )
@@ -107,12 +94,29 @@ export class RoleComponent implements OnInit {
     }
   }
 
-  edit(role: any){
-    this.roleForm.setValue({
-      roleId: role.id,
-      roleName: role.name,
-    })
+  editRole() {
+    const role = {
+      id: this.roleForm.value.id,
+      name: this.roleForm.value.name
+    }
 
+    console.log(role)
+    this.roleService.editRole(role).subscribe(data => {
+      this.ngOnInit();
+
+      this._snackBar.open('Role editado correctamente', '', {
+        duration: 2000,
+        horizontalPosition: 'center',
+        verticalPosition: 'bottom'
+      })
+    })
+  }
+
+  fillData(oldDataRole: any) {
+    this.roleForm.setValue({
+      id: oldDataRole.id,
+      name: oldDataRole.name
+    })
   }
 
 }

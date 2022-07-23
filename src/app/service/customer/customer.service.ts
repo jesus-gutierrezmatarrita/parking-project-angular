@@ -31,6 +31,7 @@ export class CustomerService {
   }
 
   editCustomer(customer:any): Observable<any>{
+    
     console.log("Hello from edit service")
     return this.httpClient.put(API_SERVER + "update/" + customer.id,customer, httpOptions)
   }

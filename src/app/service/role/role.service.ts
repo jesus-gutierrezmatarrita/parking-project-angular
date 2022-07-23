@@ -29,4 +29,9 @@ export class RoleService {
   deleteRole(id:number): Observable<any>{
     return this.httpClient.delete(API_SERVER + "delete/" + id, httpOptions);
   }
+
+  editRole(role:any): Observable<any>{
+    console.log("Hello from edit service")
+    return this.httpClient.put(API_SERVER + "update/" + role.id,role, httpOptions)
+  }
 }
