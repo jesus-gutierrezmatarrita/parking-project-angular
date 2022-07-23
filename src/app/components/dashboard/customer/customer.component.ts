@@ -107,17 +107,6 @@ export class CustomerComponent implements OnInit {
     })
 
     console.log(this.customerForm)
-
-    
-    /*
-    
-    this.customerService.editCustomer(customer).subscribe((data) => {
-      this.customerForm.reset();
-      this.ngOnInit();
-    },
-      error => { console.error(error) }
-    )*/
-
   }
 
   editCustomer() {
@@ -132,7 +121,7 @@ export class CustomerComponent implements OnInit {
 
     console.log(customer)
     this.customerService.editCustomer(customer).subscribe(data => {
-      console.log("Actualizado");
+      this.ngOnInit();
     })
   }
 
