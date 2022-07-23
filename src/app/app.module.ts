@@ -3,25 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MaterialModule} from '../material.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatNativeDateModule} from '@angular/material/core';
-import {HttpClientModule} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { NavbarComponent } from './components/dashboard/navbar/navbar.component'; 
+import { LoginComponent } from './components/login/login.component';
+import { SharedModule } from './components/shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    //NavbarComponent,
+    LoginComponent,
+    //InicioComponent
   ],
   imports: [
-    BrowserAnimationsModule,
     BrowserModule,
+    AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    MatNativeDateModule,
-    MaterialModule,
-    ReactiveFormsModule
+    SharedModule
+  
   ],
   providers: [],
   bootstrap: [AppComponent]
