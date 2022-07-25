@@ -9,6 +9,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SaveProductComponent } from './products/save-product/save-product.component';
 import { CustomerComponent } from './customer/customer.component';
 import { RoleComponent } from './role/role.component';
+import { AdministratorComponent } from './administrator/administrator.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RoleComponent } from './role/role.component';
     NavbarComponent,
     SaveProductComponent,
     CustomerComponent,
-    RoleComponent
+    RoleComponent,
+    AdministratorComponent
     ],
   imports: [
     CommonModule,

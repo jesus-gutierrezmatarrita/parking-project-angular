@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+.pointer{
+  cursor: pointer;
+}
+
+.width{
+  width: 100%;
+}
+
+.add-spacer {
+  flex: 1 1 auto;
+  margin-left: 1em;
+}
