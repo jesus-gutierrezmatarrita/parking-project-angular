@@ -28,8 +28,8 @@
             </mat-form-field>
 
             
-            <button type="submit" mat-raised-button color="primary" [disabled]="">Aceptar</button>
-            <a mat-raised-button color="secondary" [disabled]="">Editar</a>
+            <button type="submit" mat-raised-button color="primary" [disabled]="fareForm.invalid">Aceptar</button>
+            <a (click)="editFare()" mat-raised-button color="secondary" [disabled]="fareForm.invalid">Editar</a>
   
       </form>
     </mat-card>

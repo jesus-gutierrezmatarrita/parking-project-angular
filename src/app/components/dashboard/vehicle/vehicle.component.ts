@@ -105,7 +105,7 @@ export class VehicleComponent implements OnInit {
     console.log(this.vehicleForm)
   }
 
-  editCustomer() {
+  editVehicle() {
     const vehicle = {
       id: this.vehicleForm.value.id,
       plate: this.vehicleForm.value.plate,

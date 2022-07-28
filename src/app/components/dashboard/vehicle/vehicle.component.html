@@ -5,7 +5,7 @@
       <span>Insertar Vehículo</span>
     </mat-toolbar>
     <mat-card style="margin-top: 10px;">
-      <form [formGroup]="vehicleForm" >
+      <form [formGroup]="vehicleForm" (ngSubmit)="addVehicle()">
   
             <mat-form-field class="width">
               <mat-label>Placa</mat-label>
@@ -33,8 +33,8 @@
               </mat-form-field>
 
             
-            <button type="submit" mat-raised-button color="primary" [disabled]="">Aceptar</button>
-            <a mat-raised-button color="secondary" [disabled]="">Editar</a>
+            <button type="submit" mat-raised-button color="primary" [disabled]="vehicleForm.invalid">Aceptar</button>
+            <a (click)="editVehicle()" mat-raised-button color="secondary" [disabled]="vehicleForm.invalid">Editar</a>
   
       </form>
     </mat-card>
