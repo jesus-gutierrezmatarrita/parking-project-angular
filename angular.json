@@ -109,5 +109,8 @@
       }
     }
   },
-  "defaultProject": "Florida-Frontend"
+  "defaultProject": "Florida-Frontend",
+  "cli": {
+    "analytics": "17d84f2c-0dd3-4202-b314-6b433ff4b507"
+  }
 }

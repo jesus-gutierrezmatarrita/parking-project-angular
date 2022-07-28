@@ -9,6 +9,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SaveProductComponent } from './products/save-product/save-product.component';
 import { CustomerComponent } from './customer/customer.component';
 import { RoleComponent } from './role/role.component';
+import { FareComponent } from './fare/fare.component';
+import { VehicleComponent } from './vehicle/vehicle.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { RoleComponent } from './role/role.component';
     NavbarComponent,
     SaveProductComponent,
     CustomerComponent,
-    RoleComponent
+    RoleComponent,
+    FareComponent,
+    VehicleComponent,
+    IndexComponent
     ],
   imports: [
     CommonModule,

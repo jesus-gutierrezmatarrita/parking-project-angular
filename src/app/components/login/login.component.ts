@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
       
       //Redirecciona a inicio
-      this.router.navigate(['dashboard'])
+      this.router.navigate(['dashboard/index'])
       
     }, 1500);
 
