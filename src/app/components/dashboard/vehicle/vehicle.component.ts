@@ -20,7 +20,7 @@ export class VehicleComponent implements OnInit {
   vehicleForm: FormGroup;
   vehicles: any = [];
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['plate', 'brand','model', 'color', 'category', 'options'];
+  displayedColumns: string[] = ['license_plate', 'car_brand','car_model', 'color', 'category_id', 'options'];
 
   constructor(
     private route: ActivatedRoute,
@@ -34,11 +34,11 @@ export class VehicleComponent implements OnInit {
 
     this.vehicleForm = this.fb.group({
       id: [''],
-      plate: ['', Validators.required],
-      brand: ['', Validators.required],
-      model: ['', Validators.required],
+      license_plate: ['', Validators.required],
+      car_brand: ['', Validators.required],
+      car_model: ['', Validators.required],
       color: ['', Validators.required],
-      category: ['', Validators.required]
+      category_id: ['', Validators.required]
     });
 
     //Obtiene todos los productos
@@ -64,11 +64,11 @@ export class VehicleComponent implements OnInit {
 
   addVehicle() {
     const vehicle = {
-      plate: this.vehicleForm.value.plate,
-      brand: this.vehicleForm.value.brand,
-      model: this.vehicleForm.value.model,
+      license_plate: this.vehicleForm.value.license_plate,
+      car_brand: this.vehicleForm.value.car_brand,
+      car_model: this.vehicleForm.value.car_model,
       color: this.vehicleForm.value.color,
-      category: this.vehicleForm.value.category
+      category_id: this.vehicleForm.value.category_id
     }
 
     this.vehicleService.saveVehicle(vehicle).subscribe((data) => {
@@ -95,11 +95,11 @@ export class VehicleComponent implements OnInit {
   fillData(oldDataVehicle: any) {
     this.vehicleForm.setValue({
       id: oldDataVehicle.id,
-      plate: oldDataVehicle.plate,
-      brand: oldDataVehicle.brand,
-      model: oldDataVehicle.model,
+      plate: oldDataVehicle.license_plate,
+      brand: oldDataVehicle.car_brand,
+      model: oldDataVehicle.car_model,
       color: oldDataVehicle.color,
-      category: oldDataVehicle.category
+      category: oldDataVehicle.category_id
     })
 
     console.log(this.vehicleForm)
@@ -108,11 +108,11 @@ export class VehicleComponent implements OnInit {
   editVehicle() {
     const vehicle = {
       id: this.vehicleForm.value.id,
-      plate: this.vehicleForm.value.plate,
-      brand: this.vehicleForm.value.brand,
-      model: this.vehicleForm.value.model,
+      plate: this.vehicleForm.value.license_plate,
+      brand: this.vehicleForm.value.car_brand,
+      model: this.vehicleForm.value.car_model,
       color: this.vehicleForm.value.color,
-      category: this.vehicleForm.value.category
+      category: this.vehicleForm.value.category_id
     }
 
     console.log(vehicle)
