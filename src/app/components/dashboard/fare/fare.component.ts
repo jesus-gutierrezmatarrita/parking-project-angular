@@ -99,14 +99,14 @@ export class FareComponent implements OnInit {
   }
 
   editFare() {
-    const customer = {
+    const fare = {
       id: this.fareForm.value.id,
-      slot: this.fareForm.value.parkingSlotId,
-      vehicle: this.fareForm.value.vehicleCategoryId,
-      time: this.fareForm.value.unitTimeId,
+      parkingSlotId: this.fareForm.value.slot,
+      vehicleCategoryId: this.fareForm.value.vehicle,
+      unitTimeId: this.fareForm.value.time,
       price: this.fareForm.value.price
     }
-    this.fareService.editFare(customer).subscribe(data => {
+    this.fareService.editFare(fare).subscribe(data => {
       this.ngOnInit();
     })
   }
