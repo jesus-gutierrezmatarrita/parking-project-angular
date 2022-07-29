@@ -1,11 +1,11 @@
-<!---Formulario para insertar parqueo-->
+<!---Formulario para insertar operador-->
 
 <div class="container">
   <mat-toolbar>
-    <span>Insertar Parqueo</span>
+    <span>Insertar Operador</span>
   </mat-toolbar>
   <mat-card style="margin-top: 10px;">
-    <form [formGroup]="parkingForm" (ngSubmit)="addParking()">
+    <form [formGroup]="operatorForm" (ngSubmit)="addOperator()">
 
           <mat-form-field class="width">
             <mat-label>Nombre</mat-label>
@@ -13,28 +13,38 @@
           </mat-form-field>
 
           <mat-form-field class="width">
-            <mat-label>Ubicación</mat-label>
-            <input matInput autocomplete="off" type="text" formControlName = "location">
+            <mat-label>Apellido</mat-label>
+            <input matInput autocomplete="off" type="text" formControlName = "lastname">
           </mat-form-field>
 
           <mat-form-field class="width">
-            <mat-label>Capacidad</mat-label>
-            <input input type="number" min="0" matInput autocomplete="off" formControlName = "capacity">
+            <mat-label>Contraseña</mat-label>
+            <input matInput autocomplete="off" type="password" formControlName = "password">
+          </mat-form-field>
+
+          <mat-form-field class="width">
+            <mat-label>Email</mat-label>
+            <input matInput autocomplete="off" type="email" formControlName = "email">
+          </mat-form-field>
+
+          <mat-form-field class="width">
+            <mat-label>Teléfono</mat-label>
+            <input input type="number" min="0" matInput autocomplete="off" formControlName = "phone">
           </mat-form-field>
           
-          <button type="submit" mat-raised-button color="primary" [disabled]="parkingForm.invalid">Aceptar</button>
-          <a (click)="editParking()" mat-raised-button color="secondary" [disabled]="parkingForm.invalid">Editar</a>
+          <button type="submit" mat-raised-button color="primary" [disabled]="operatorForm.invalid">Aceptar</button>
+          <a (click)="editOperator()" mat-raised-button color="secondary" [disabled]="operatorForm.invalid">Editar</a>
 
     </form>
   </mat-card>
 
 </div>
 <br>
-<!---Tabla con los parqueos-->
+<!---Tabla con los operadoradores-->
 
 <div class="container">
   <mat-toolbar>
-    <span>Parqueos Registrados</span>
+    <span>Operadores Registrados</span>
     <div class="example-spacer"></div>
   </mat-toolbar>
   <div class="mat-elevation-z8">
@@ -57,14 +67,20 @@
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="location">
-        <th mat-header-cell *matHeaderCellDef> Ubicación</th>
-        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef> Apellido</th>
+        <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="capacity">
-        <th mat-header-cell *matHeaderCellDef> Capacidad </th>
-        <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Telefono </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
       </ng-container>
 
       <ng-container matColumnDef="options">

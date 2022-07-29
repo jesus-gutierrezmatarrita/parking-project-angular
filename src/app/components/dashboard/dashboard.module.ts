@@ -11,7 +11,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { RoleComponent } from './role/role.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { ParkingComponent } from './parking/parking.component';
-
+import { OperatorComponent } from './operator/operator.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { ParkingComponent } from './parking/parking.component';
     NavbarComponent,
     SaveProductComponent,
     CustomerComponent,
+    OperatorComponent,
     RoleComponent,
     ParkingComponent,
     AdministratorComponent
