@@ -36,7 +36,7 @@ export class VehicleComponent implements OnInit {
       id: [''],
       license_plate: ['', Validators.required],
       car_brand: ['', Validators.required],
-      car_mdel: ['', Validators.required],
+      car_model: ['', Validators.required],
       color: ['', Validators.required],
       category_id: ['', Validators.required]
     });
