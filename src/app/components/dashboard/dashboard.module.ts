@@ -10,6 +10,8 @@ import { SaveProductComponent } from './products/save-product/save-product.compo
 import { CustomerComponent } from './customer/customer.component';
 import { RoleComponent } from './role/role.component';
 import { AdministratorComponent } from './administrator/administrator.component';
+import { ParkingComponent } from './parking/parking.component';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { AdministratorComponent } from './administrator/administrator.component'
     SaveProductComponent,
     CustomerComponent,
     RoleComponent,
+    ParkingComponent,
     AdministratorComponent
+    
     ],
   imports: [
     CommonModule,
