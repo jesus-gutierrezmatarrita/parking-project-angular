@@ -1,0 +1,103 @@
+<!---Formulario para insertar Tarifa-->
+
+<div class="container">
+    <mat-toolbar>
+      <span>Insertar Tarifa</span>
+    </mat-toolbar>
+    <mat-card style="margin-top: 10px;">
+      <form [formGroup]="fareForm" (ngSubmit)="addFare()">
+  
+            <mat-form-field class="width">
+              <mat-label>Id Espacio</mat-label>
+              <input matInput autocomplete="off" type="number" formControlName = "slot">
+            </mat-form-field>
+  
+            <mat-form-field class="width">
+              <mat-label>Id Categoría Vehículo</mat-label>
+              <input matInput autocomplete="off" type="number" formControlName = "vehicle">
+            </mat-form-field>
+  
+            <mat-form-field class="width">
+              <mat-label>Id Unidad de Tiempo</mat-label>
+              <input matInput autocomplete="off" type="number" formControlName = "time">
+            </mat-form-field>
+  
+            <mat-form-field class="width">
+              <mat-label>Precio</mat-label>
+              <input matInput autocomplete="off" type="number" formControlName = "price">
+            </mat-form-field>
+
+            
+            <button type="submit" mat-raised-button color="primary" [disabled]="fareForm.invalid">Aceptar</button>
+            <a (click)="editFare()" mat-raised-button color="secondary" [disabled]="fareForm.invalid">Editar</a>
+  
+      </form>
+    </mat-card>
+  
+  </div>
+  <br>
+
+  <!---Tabla con los tarifa-->
+
+<div class="container">
+  <mat-toolbar>
+    <span>Tarifas Registradas</span>
+    <div class="example-spacer"></div>
+  </mat-toolbar>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="slot">
+        <th mat-header-cell *matHeaderCellDef> Id Espacio </th>
+        <td mat-cell *matCellDef="let element"> {{element.slot}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="vehicle">
+        <th mat-header-cell *matHeaderCellDef> Id Categoría Vehículo</th>
+        <td mat-cell *matCellDef="let element"> {{element.vehicle}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="time">
+        <th mat-header-cell *matHeaderCellDef> Id Unidad de Tiempo </th>
+        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Precio </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" style="text-align: right;">
+          <a class="pointer" (click)="fillData(element)" style="color: #1f516f">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <a class="pointer" (click)="delete(element.id)" style="color: #e15639">
+            <mat-icon>delete</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+  </div>
+
+
+</div>

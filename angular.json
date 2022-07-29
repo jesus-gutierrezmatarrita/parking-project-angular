@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Florida-Frontend": {
+    "parking-project-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -112,5 +112,8 @@
       }
     }
   },
-  "defaultProject": "parking-project-angular"
+  "defaultProject": "parking-project-angular",
+  "cli": {
+    "analytics": "17d84f2c-0dd3-4202-b314-6b433ff4b507"
+  }
 }
