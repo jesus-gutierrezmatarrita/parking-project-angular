@@ -7,12 +7,14 @@ import { SaveProductComponent } from './products/save-product/save-product.compo
 import { RoleComponent } from './role/role.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { ParkingComponent } from './parking/parking.component';
+import { OperatorComponent } from './operator/operator.component';
 
 const routes: Routes = [
   {path: '', component: DashboardComponent, children: [
     { path: 'products', component: ProductsComponent},
     { path: 'customer', component: CustomerComponent},
     { path: 'role', component: RoleComponent},
+    { path: 'operator', component: OperatorComponent},
     { path: 'parking', component: ParkingComponent},
     { path: 'administrator', component: AdministratorComponent},
     { path: 'save-product', component: SaveProductComponent},
