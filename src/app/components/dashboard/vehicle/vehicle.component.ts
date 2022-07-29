@@ -34,11 +34,11 @@ export class VehicleComponent implements OnInit {
 
     this.vehicleForm = this.fb.group({
       id: [''],
-      license_plate: ['', Validators.required],
-      car_brand: ['', Validators.required],
-      car_model: ['', Validators.required],
+      licensePlate: ['', Validators.required],
+      carBrand: ['', Validators.required],
+      carModel: ['', Validators.required],
       color: ['', Validators.required],
-      category_id: ['', Validators.required]
+      categoryId: ['', Validators.required]
     });
 
     //Obtiene todos los productos
@@ -64,11 +64,11 @@ export class VehicleComponent implements OnInit {
 
   addVehicle() {
     const vehicle = {
-      license_plate: this.vehicleForm.value.license_plate,
-      car_brand: this.vehicleForm.value.car_brand,
-      car_model: this.vehicleForm.value.car_model,
+      licensePlate: this.vehicleForm.value.license_plate,
+      carBrand: this.vehicleForm.value.car_brand,
+      carModel: this.vehicleForm.value.car_model,
       color: this.vehicleForm.value.color,
-      category_id: this.vehicleForm.value.category_id
+      categoryId: this.vehicleForm.value.category_id
     }
 
     this.vehicleService.saveVehicle(vehicle).subscribe((data) => {
@@ -95,11 +95,11 @@ export class VehicleComponent implements OnInit {
   fillData(oldDataVehicle: any) {
     this.vehicleForm.setValue({
       id: oldDataVehicle.id,
-      license_plate: oldDataVehicle.license_plate,
-      car_brand: oldDataVehicle.car_brand,
-      car_model: oldDataVehicle.car_model,
+      licensePlate: oldDataVehicle.license_plate,
+      carBrand: oldDataVehicle.car_brand,
+      carModel: oldDataVehicle.car_model,
       color: oldDataVehicle.color,
-      category_id: oldDataVehicle.category_id
+      categoryId: oldDataVehicle.category_id
     })
 
     console.log(this.vehicleForm)
