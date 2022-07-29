@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FareService } from 'src/app/service/fare/fare.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-fare',
@@ -20,7 +21,7 @@ export class FareComponent implements OnInit {
   fareForm: FormGroup;
   fares: any = [];
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['slot', 'vehicle','time', 'price', 'options'];
+  displayedColumns: string[] = ['slot', 'vehicle', 'time', 'price', 'options'];
 
   constructor(
     private route: ActivatedRoute,
@@ -72,6 +73,13 @@ export class FareComponent implements OnInit {
 
       this.fares.push(data);
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
       error => { console.error(error) }
     )
@@ -79,13 +87,31 @@ export class FareComponent implements OnInit {
 
 
   delete(id: number) {
-    if (confirm('¿De verdad quiere eliminar?')) {
-      this.fareService.deleteFare(id).subscribe((data) => {
-        this.ngOnInit();
-      },
-        error => { console.error(error) }
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar esta tarifa?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.fareService.deleteFare(id).subscribe((data) => {
+          this.ngOnInit();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'La tarifa fue borrada exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
   }
 
   fillData(oldDataFare: any) {
@@ -108,6 +134,13 @@ export class FareComponent implements OnInit {
     }
     this.fareService.editFare(fare).subscribe(data => {
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 

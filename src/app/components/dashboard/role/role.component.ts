@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from 'src/app/service/product/product.service';
 import { RoleService } from 'src/app/service/role/role.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-role',
@@ -66,11 +66,12 @@ export class RoleComponent implements OnInit {
 
       this.roles.push(data);
       this.ngOnInit();
-
-      this._snackBar.open('Role guardado correctamente', '', {
-        duration: 2000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom'
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
       })
     },
       error => { console.error(error) }
@@ -78,20 +79,31 @@ export class RoleComponent implements OnInit {
   }
 
   delete(id: number){
-    if (confirm('¿Está seguro de que desea eliminar el registro?')){
+    Swal.fire({
+      title: '¿Desea eliminar este rol?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
       this.roleService.deleteRole(id).subscribe((data) => {
         this.ngOnInit();
-        
-        this._snackBar.open('Role eliminado', '', {
-          duration: 2000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom'
-        })
-        
-      },
-        error => { console.error(error) }
-      )
-    }
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El rol fue borrado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
   }
 
   editRole() {
@@ -104,10 +116,12 @@ export class RoleComponent implements OnInit {
     this.roleService.editRole(role).subscribe(data => {
       this.ngOnInit();
 
-      this._snackBar.open('Role editado correctamente', '', {
-        duration: 2000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom'
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
       })
     })
   }

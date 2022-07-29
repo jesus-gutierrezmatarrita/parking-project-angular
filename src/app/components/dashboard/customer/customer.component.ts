@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { CustomerService } from 'src/app/service/customer/customer.service';
 import { ProductService } from 'src/app/service/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer',
@@ -80,6 +81,13 @@ export class CustomerComponent implements OnInit {
 
       this.customers.push(data);
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
       error => { console.error(error) }
     )
@@ -87,13 +95,31 @@ export class CustomerComponent implements OnInit {
 
 
   delete(id: number) {
-    if (confirm('¿De verdad quiere eliminar?')) {
+    Swal.fire({
+      title: '¿Desea eliminar este cliente?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
       this.customerService.deleteCustomer(id).subscribe((data) => {
         this.ngOnInit();
-      },
-        error => { console.error(error) }
-      )
-    }
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El cliente fue borrado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
   }
 
   fillData(oldDataCustomer: any) {
@@ -122,6 +148,13 @@ export class CustomerComponent implements OnInit {
     console.log(customer)
     this.customerService.editCustomer(customer).subscribe(data => {
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 
