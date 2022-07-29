@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-const API_SERVER = "http://parking-project-operations.herokuapp.com/administrator/";
+const API_SERVER = "https://parking-project-operations.herokuapp.com/administrator/";
 
 const httpOptions = {
   headers: new HttpHeaders ({
