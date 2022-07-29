@@ -34,11 +34,11 @@ export class VehicleComponent implements OnInit {
 
     this.vehicleForm = this.fb.group({
       id: [''],
-      licensePlate: ['', Validators.required],
-      carBrand: ['', Validators.required],
-      carModel: ['', Validators.required],
+      license_plate: ['', Validators.required],
+      car_brand: ['', Validators.required],
+      car_mdel: ['', Validators.required],
       color: ['', Validators.required],
-      categoryId: ['', Validators.required]
+      category_id: ['', Validators.required]
     });
 
     //Obtiene todos los productos
