@@ -84,6 +84,13 @@ export class AdministratorComponent implements OnInit {
 
       this.administrators.push(data);
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
       error => { console.error(error) }
     )
@@ -98,7 +105,8 @@ export class AdministratorComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, borrar'
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.administratorService.deleteAdministrator(id).subscribe((data) => {

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { OperatorService } from 'src/app/service/operator/operator.service';
 import { ProductService } from 'src/app/service/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-operator',
@@ -22,7 +23,7 @@ export class OperatorComponent implements OnInit {
   operatorForm: FormGroup;
   operators: any = [];
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'lastname','email', 'phone', 'options'];
+  displayedColumns: string[] = ['name', 'lastname', 'email', 'phone', 'options'];
 
   constructor(
     private route: ActivatedRoute,
@@ -80,6 +81,13 @@ export class OperatorComponent implements OnInit {
 
       this.operators.push(data);
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
       error => { console.error(error) }
     )
@@ -87,13 +95,31 @@ export class OperatorComponent implements OnInit {
 
 
   delete(id: number) {
-    if (confirm('¿De verdad quiere eliminar?')) {
-      this.operatorService.deleteOperator(id).subscribe((data) => {
-        this.ngOnInit();
-      },
-        error => { console.error(error) }
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar este operador?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.operatorService.deleteOperator(id).subscribe((data) => {
+          this.ngOnInit();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El operador fue borrado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
   }
 
   fillData(oldDataOperator: any) {
@@ -122,6 +148,13 @@ export class OperatorComponent implements OnInit {
     console.log(operator)
     this.operatorService.editOperator(operator).subscribe(data => {
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 

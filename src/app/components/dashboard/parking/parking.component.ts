@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { ParkingService } from 'src/app/service/parking/parking.service';
 import { ProductService } from 'src/app/service/product/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-parking',
@@ -22,7 +23,7 @@ export class ParkingComponent implements OnInit {
   parkingForm: FormGroup;
   parkings: any = [];
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['name', 'location','capacity',  'options'];
+  displayedColumns: string[] = ['name', 'location', 'capacity', 'options'];
 
   constructor(
     private route: ActivatedRoute,
@@ -76,6 +77,13 @@ export class ParkingComponent implements OnInit {
 
       this.parkings.push(data);
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Agregado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     },
       error => { console.error(error) }
     )
@@ -83,13 +91,31 @@ export class ParkingComponent implements OnInit {
 
 
   delete(id: number) {
-    if (confirm('¿De verdad quiere eliminar?')) {
-      this.parkingService.deleteParking(id).subscribe((data) => {
-        this.ngOnInit();
-      },
-        error => { console.error(error) }
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar este parqueo?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.parkingService.deleteParking(id).subscribe((data) => {
+          this.ngOnInit();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El parqueo fue borrado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
   }
 
   fillData(oldDataParking: any) {
@@ -114,6 +140,13 @@ export class ParkingComponent implements OnInit {
     console.log(parking)
     this.parkingService.editParking(parking).subscribe(data => {
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 
