@@ -60,19 +60,19 @@
       <!-- Name Column -->
       <ng-container matColumnDef="slot">
         <th mat-header-cell *matHeaderCellDef> Id Espacio </th>
-        <td mat-cell *matCellDef="let element"> {{element.slot}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.parkingSlotId}} </td>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="vehicle">
         <th mat-header-cell *matHeaderCellDef> Id Categoría Vehículo</th>
-        <td mat-cell *matCellDef="let element"> {{element.vehicle}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.vehicleCategoryId}} </td>
       </ng-container>
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="time">
         <th mat-header-cell *matHeaderCellDef> Id Unidad de Tiempo </th>
-        <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.unitTimeId}} </td>
       </ng-container>
 
       <ng-container matColumnDef="price">
