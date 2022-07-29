@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from 'src/app/service/company/company.service';
 import { AdministratorService } from 'src/app/service/administrator/administrator.service';
 import { ProductService } from 'src/app/service/product/product.service';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-administrator',
@@ -91,13 +91,31 @@ export class AdministratorComponent implements OnInit {
 
 
   delete(id: number) {
-    if (confirm('¿De verdad quiere eliminar?')) {
-      this.administratorService.deleteAdministrator(id).subscribe((data) => {
-        this.ngOnInit();
-      },
-        error => { console.error(error) }
-      )
-    }
+    Swal.fire({
+      title: '¿Desea eliminar este administrador?',
+      text: "Esta acción es irreversible",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.administratorService.deleteAdministrator(id).subscribe((data) => {
+          this.ngOnInit();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'El administrador fue borrado exitosamente',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+          error => { console.error(error) }
+        )
+      }
+    })
+
   }
 
   fillData(oldDataAdministrator: any) {
@@ -126,6 +144,13 @@ export class AdministratorComponent implements OnInit {
     console.log(administrator)
     this.administratorService.editAdministrator(administrator).subscribe(data => {
       this.ngOnInit();
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Actualizado correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 
