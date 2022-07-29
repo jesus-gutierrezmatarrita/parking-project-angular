@@ -95,11 +95,11 @@ export class VehicleComponent implements OnInit {
   fillData(oldDataVehicle: any) {
     this.vehicleForm.setValue({
       id: oldDataVehicle.id,
-      plate: oldDataVehicle.license_plate,
-      brand: oldDataVehicle.car_brand,
-      model: oldDataVehicle.car_model,
+      license_plate: oldDataVehicle.license_plate,
+      car_brand: oldDataVehicle.car_brand,
+      car_model: oldDataVehicle.car_model,
       color: oldDataVehicle.color,
-      category: oldDataVehicle.category_id
+      category_id: oldDataVehicle.category_id
     })
 
     console.log(this.vehicleForm)
@@ -108,11 +108,11 @@ export class VehicleComponent implements OnInit {
   editVehicle() {
     const vehicle = {
       id: this.vehicleForm.value.id,
-      plate: this.vehicleForm.value.license_plate,
-      brand: this.vehicleForm.value.car_brand,
-      model: this.vehicleForm.value.car_model,
+      license_plate: this.vehicleForm.value.license_plate,
+      car_brand: this.vehicleForm.value.car_brand,
+      car_model: this.vehicleForm.value.car_model,
       color: this.vehicleForm.value.color,
-      category: this.vehicleForm.value.category_id
+      category_id: this.vehicleForm.value.category_id
     }
 
     console.log(vehicle)
