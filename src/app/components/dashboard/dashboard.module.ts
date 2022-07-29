@@ -12,6 +12,9 @@ import { RoleComponent } from './role/role.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { ParkingComponent } from './parking/parking.component';
 import { OperatorComponent } from './operator/operator.component';
+import { FareComponent } from './fare/fare.component';
+import { VehicleComponent } from './vehicle/vehicle.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +26,11 @@ import { OperatorComponent } from './operator/operator.component';
     OperatorComponent,
     RoleComponent,
     ParkingComponent,
-    AdministratorComponent
-    
+    AdministratorComponent,
+    RoleComponent,
+    FareComponent,
+    VehicleComponent,
+    IndexComponent
     ],
   imports: [
     CommonModule,
