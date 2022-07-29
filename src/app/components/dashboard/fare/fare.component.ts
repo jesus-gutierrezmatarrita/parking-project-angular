@@ -61,9 +61,9 @@ export class FareComponent implements OnInit {
 
   addFare() {
     const fare = {
-      slot: this.fareForm.value.slot,
-      vehicle: this.fareForm.value.lastname,
-      time: this.fareForm.value.password,
+      parkingSlotId: this.fareForm.value.slot,
+      vehicleCategoryId: this.fareForm.value.lastname,
+      unitTimeId: this.fareForm.value.password,
       price: this.fareForm.value.email
     }
 
@@ -91,25 +91,21 @@ export class FareComponent implements OnInit {
   fillData(oldDataFare: any) {
     this.fareForm.setValue({
       id: oldDataFare.id,
-      slot: oldDataFare.slot,
-      vehicle: oldDataFare.vehicle,
-      time: oldDataFare.time,
+      slot: oldDataFare.parkingSlotId,
+      vehicle: oldDataFare.vehicleCategoryId,
+      time: oldDataFare.unitTimeId,
       price: oldDataFare.price
     })
-
-    console.log(this.fareForm)
   }
 
   editFare() {
     const customer = {
       id: this.fareForm.value.id,
-      slot: this.fareForm.value.slot,
-      vehicle: this.fareForm.value.vehicle,
-      time: this.fareForm.value.time,
+      slot: this.fareForm.value.parkingSlotId,
+      vehicle: this.fareForm.value.vehicleCategoryId,
+      time: this.fareForm.value.unitTimeId,
       price: this.fareForm.value.price
     }
-
-    console.log(customer)
     this.fareService.editFare(customer).subscribe(data => {
       this.ngOnInit();
     })
