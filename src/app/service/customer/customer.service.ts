@@ -50,4 +50,8 @@ export class CustomerService {
     };
   }
 
+  generateCustomerListPdf(){
+    return this.httpClient.get(API_SERVER + "pdf/" , {responseType: 'blob'})
+  }
+
 }

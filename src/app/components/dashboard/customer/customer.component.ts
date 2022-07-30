@@ -125,4 +125,14 @@ export class CustomerComponent implements OnInit {
     })
   }
 
+  getCustomerListPdf(){
+    this.customerService.generateCustomerListPdf().subscribe((data)=>{
+      let downloadURL = window.URL.createObjectURL(data);
+      let link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = "customerList.pdf";
+      link.click()
+    })
+  }
+
 }

@@ -46,6 +46,7 @@
   <mat-toolbar>
     <span>Clientes Registrados</span>
     <div class="example-spacer"></div>
+    <a mat-stroked-button (click)="getCustomerListPdf()">Reporte</a>
   </mat-toolbar>
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
